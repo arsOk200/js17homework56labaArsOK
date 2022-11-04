@@ -2,7 +2,21 @@
   text-align: center;
 }
 
-.conctructor{
 
+.constructor{
+  max-width: 1000px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+}
+.btns{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+.imgs{
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 }
 

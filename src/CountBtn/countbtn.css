@@ -1,0 +1,17 @@
+.btn{
+    padding: 10px;
+    background-color: cornflowerblue;
+    border: #252525 1px solid;
+}
+.btn:hover{
+    cursor: pointer;
+    background-color: rgb(67, 101, 165);
+}
+.item-text{
+    margin: 10px;
+}
+.item-container{
+    display: flex;
+    justify-content: flex-end;
+    margin: 13px 0 ;
+}

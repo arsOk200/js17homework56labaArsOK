@@ -5,17 +5,19 @@ import cheeseImage from '../src/assets/Cheese.png';
 import baconImage from '../src/assets/Bacon.png';
 import saladImage from '../src/assets/salad.png';
 import Gamburger from "./Gamburger/Gamburger";
-import Items from "./Items/Items";
 import Price from "./Price/Price";
+import NameImg from "./Name-Img/ NameImg";
+import CountBtn from "./CountBtn/CountBtn";
+
 
 
 function App() {
 
   const [ingredients, setIngredients] = useState([
-    {name: 'Meat', count: 0},
-    {name: 'Cheese', count: 0},
-    {name: 'Salad', count: 0},
-    {name: 'Bacon', count: 0},
+    {name: 'Meat', count: 0, id:'1'},
+    {name: 'Cheese', count: 0, id:'2'},
+    {name: 'Salad', count: 0,id:'3'},
+    {name: 'Bacon', count: 0,id:'4'},
 ]);
 
   const INGREDIENTS: Ingredient[] = [
@@ -24,22 +26,58 @@ function App() {
     {name: 'Salad', price: 10, image: saladImage,id:'3'},
     {name: 'Bacon', price: 60, image: baconImage,id:'4'},
   ];
-  console.log(INGREDIENTS);
+
+  const onAdd = (id:string) => {
+      setIngredients(prev => prev.map(item => {
+        return item.id ===id ? {
+          ...item,
+          count: item.count + 1,
+        }:item;
+      }));
+  };
+  const onDelete = (id:string) => {
+    setIngredients(prev => prev.map(item => {
+      return item.id ===id ? {
+        ...item,
+        count: item.count--,
+      }:item;
+    }));
+  };
+
+  const showCount = ingredients.map((it) => {
+      return it.count;
+    })
+  console.log(showCount.map((el => {return el})))
+
+
+
 
   return (
     <div className="App">
       <Price/>
       <div className="constructor">
         <div className="items">
-          {INGREDIENTS.map((item) =>
-            <Items
-              name={item.name}
-              image={item.image}
-              price={item.price}
-              key={item.id}
-              count={0}
+          <div className="item">
+            <div className="imgs">
+              {INGREDIENTS.map((item)=>
+                <NameImg
+                  price={item.price}
+                  name={item.name}
+                  image={item.image}
+                  key={item.id}
+                  onAdd={()=> onAdd(item.id)}/>)}
 
-              />)}
+            </div>
+            <div className="btns">
+              {ingredients.map((item) =>
+                <CountBtn
+                  count={item.count}
+                  key={item.id}
+                  onDelete={()=>onDelete(item.id)}/>
+              )}
+            </div>
+
+              </div>
         </div>
 
         <Gamburger/>
