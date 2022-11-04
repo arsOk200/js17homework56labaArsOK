@@ -1,11 +1,15 @@
 import React from 'react';
 import './Price.css';
+interface Props {
+  price:number;
+}
 
-const Price = () => {
+
+const Price:React.FC<Props> = (props) => {
   return (
     <div className="price-block">
       <p className="price-text">Price:</p>
-      <span className="price">1000 KGS</span>
+      <span className="price">{props.price} KGS</span>
     </div>
   );
 };

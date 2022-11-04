@@ -13,7 +13,7 @@ const NameImg:React.FC<Props> = (props) => {
   return (
     <div className="item-wrapper click" onClick={props.onAdd}>
       <img src={props.image} alt={props.name} className="img" />
-      <p className="item-text">{props.name}-{props.price}KGS </p>
+      <p className="item-text">{props.name}  {props.price}KGS </p>
     </div>
   );
 };

@@ -27,6 +27,19 @@ function App() {
     {name: 'Bacon', price: 60, image: baconImage,id:'4'},
   ];
 
+  const [price, setPrice] = useState([
+    {price: 30},
+  ]);
+
+  if(price[0].price < 0) {
+    const priceCopy = [...price];
+    const itemCopy = priceCopy[0];
+    itemCopy.price = 30 ;
+    setPrice([itemCopy]);
+  }
+
+
+
   const onAdd = (id:string) => {
       setIngredients(prev => prev.map(item => {
         return item.id ===id ? {
@@ -34,6 +47,11 @@ function App() {
           count: item.count + 1,
         }:item;
       }));
+    const priceCopy = [...price];
+    const itemCopy = priceCopy[0];
+    itemCopy.price = INGREDIENTS[parseInt(id)-1].price + itemCopy.price ;
+    setPrice([itemCopy]);
+
   };
   const onDelete = (id:string) => {
     setIngredients(prev => prev.map(item => {
@@ -42,19 +60,16 @@ function App() {
         count: item.count--,
       }:item;
     }));
+    const priceCopy = [...price];
+    const itemCopy = priceCopy[0];
+    itemCopy.price = itemCopy.price - INGREDIENTS[parseInt(id)-1].price ;
+    setPrice([itemCopy]);
   };
-
-  const showCount = ingredients.map((it) => {
-      return it.count;
-    })
-  console.log(showCount.map((el => {return el})))
-
-
 
 
   return (
     <div className="App">
-      <Price/>
+      <Price price={price[0].price}/>
       <div className="constructor">
         <div className="items">
           <div className="item">
@@ -66,7 +81,6 @@ function App() {
                   image={item.image}
                   key={item.id}
                   onAdd={()=> onAdd(item.id)}/>)}
-
             </div>
             <div className="btns">
               {ingredients.map((item) =>
@@ -76,11 +90,12 @@ function App() {
                   onDelete={()=>onDelete(item.id)}/>
               )}
             </div>
-
               </div>
         </div>
 
-        <Gamburger/>
+        <Gamburger count={ingredients.map((item) => {
+          return item.count;
+        })}/>
       </div>
 
     </div>
